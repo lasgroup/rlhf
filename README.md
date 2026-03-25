@@ -1,4 +1,4 @@
-# rlhf.github.io
+# [lasgroup.github.io/rlhf/](https://lasgroup.github.io/rlhf/)
 
 This repository contains a static website.
 

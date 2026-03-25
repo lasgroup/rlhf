@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Primary Meta Tags -->
+  <title>RewardUQ: A Unified Framework for Uncertainty-Aware Reward Models | ETH Zurich</title>
+  <meta name="title" content="RewardUQ: A Unified Framework for Uncertainty-Aware Reward Models">
+  <meta name="description"
+    content="Project page for RewardUQ, a unified framework for evaluating uncertainty quantification methods in reward models for RLHF and large language model alignment.">
+  <meta name="keywords"
+    content="reward models, uncertainty quantification, RLHF, large language models, preference learning, calibration, epistemic uncertainty, RewardUQ, LLM alignment">
+  <meta name="author"
+    content="Daniel Yang, Samuel Stante, Florian Redhardt, Lena Libon, Parnian Kassraie, Ido Hakimi, Barna Pásztor, Andreas Krause">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ETH Zurich">
+  <meta property="og:title" content="RewardUQ: A Unified Framework for Uncertainty-Aware Reward Models">
+  <meta property="og:description"
+    content="A unified framework for evaluating uncertainty quantification methods in reward models for RLHF and large language model alignment.">
+  <!-- Optional: replace with your final deployed page URL -->
+  <!-- <meta property="og:url" content="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/RewardUQ.html"> -->
+  <meta property="article:published_time" content="2026-02-28T00:00:00.000Z">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RewardUQ: A Unified Framework for Uncertainty-Aware Reward Models">
+  <meta name="twitter:description"
+    content="A unified framework for evaluating uncertainty quantification methods in reward models for RLHF and large language model alignment.">
+
+  <!-- Academic Meta -->
+  <meta name="citation_title" content="RewardUQ: A Unified Framework for Uncertainty-Aware Reward Models">
+  <meta name="citation_author" content="Yang, Daniel">
+  <meta name="citation_author" content="Stante, Samuel">
+  <meta name="citation_author" content="Redhardt, Florian">
+  <meta name="citation_author" content="Libon, Lena">
+  <meta name="citation_author" content="Kassraie, Parnian">
+  <meta name="citation_author" content="Hakimi, Ido">
+  <meta name="citation_author" content="Pásztor, Barna">
+  <meta name="citation_author" content="Krause, Andreas">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2602.24040.pdf">
+
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- JS -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "RewardUQ: A Unified Framework for Uncertainty-Aware Reward Models",
+    "description": "A unified framework for evaluating uncertainty quantification methods in reward models for RLHF and large language model alignment.",
+    "author": [
+      { "@type": "Person", "name": "Daniel Yang", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Samuel Stante", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Florian Redhardt", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Lena Libon", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Parnian Kassraie", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Ido Hakimi", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Barna Pásztor", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Andreas Krause", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } }
+    ],
+    "datePublished": "2026-02-28",
+    "publisher": {
+      "@type": "Organization",
+      "name": "ETH Zurich"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2602.24040",
+      "https://github.com/lasgroup/rewarduq"
+    ],
+    "isAccessibleForFree": true
+  }
+  </script>
+
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+
+    .top-nav {
+      padding: 1rem 1.5rem 0;
+    }
+
+    .top-nav .buttons {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .section-divider {
+      margin-top: 3rem;
+    }
+
+    .paper-section p {
+      line-height: 1.8;
+    }
+
+    .figure-caption {
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      color: #6b7280;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .abstract-links a {
+      color: #2563eb;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      font-weight: 600;
+    }
+
+    .abstract-links a:hover,
+    .abstract-links a:focus {
+      color: #1d4ed8;
+    }
+
+    .formula-box {
+      background: #f5f0e8;
+      border: 1px solid #d4c9b8;
+      border-radius: 14px;
+      padding: 0.95rem 1.25rem;
+      margin: 1.25rem 0 1.5rem;
+      font-size: 0.95rem;
+      color: #4a3f35;
+      overflow-x: auto;
+      line-height: 1.9;
+    }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .method-card {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 1.25rem 1.35rem;
+      height: 100%;
+    }
+
+    .method-card .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: #111827;
+      color: #ffffff;
+      border-radius: 999px;
+      padding: 0.22rem 0.55rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .method-card h4 {
+      margin-top: 0.2rem;
+      margin-bottom: 0.65rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .method-card p {
+      margin-bottom: 0;
+      color: #4b5563;
+      line-height: 1.7;
+    }
+
+    .placeholder-figure {
+      border: 1px dashed #cbd5e1;
+      background: #f8fafc;
+      border-radius: 16px;
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      color: #6b7280;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .highlight-box {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 1.25rem;
+    }
+
+    .bibtex-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .copy-bibtex-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.65rem 1rem;
+      background: #111827;
+      color: white;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .copy-bibtex-btn:hover {
+      background: #000;
+    }
+
+    pre.bibtex-block {
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-x: auto;
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 1.25rem;
+      border: 1px solid #e5e7eb;
+    }
+
+    .footer-nav {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .method-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .institution-logos {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: center;
+      column-gap: 2rem;
+      max-width: 760px;
+      margin: 1.5rem auto 1.75rem;
+    }
+
+    .logo-box {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-box img {
+      display: block;
+      max-height: 54px;
+      max-width: 200px;
+      width: auto;
+      object-fit: contain;
+    }
+
+
+    /* Metric cards */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.15rem;
+      margin-top: 1.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .metric-card {
+      border-radius: 14px;
+      padding: 1.15rem 1.25rem;
+      border: 1px solid #e5e7eb;
+      ;
+    }
+
+    .metric-card.green {
+      background: #f8fafc;
+      border-color: #b4b4b8;
+    }
+
+    .metric-card.red {
+      background: #fef2f2;
+      border-color: #b4b4b8;
+    }
+
+    .metric-card.amber {
+      background: #fffbeb;
+      border-color: #b4b4b8;
+    }
+
+    .metric-card.purple {
+      background: #f8fafc;
+      border-color: #b4b4b8;
+    }
+
+    .metric-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .metric-card p {
+      font-size: 0.9rem;
+      color: #374151;
+      margin: 0;
+      text-align: justify;
+    }
+
+    /* Confusion matrix style table */
+    .confusion-table {
+      width: 100%;
+      max-width: 440px;
+      margin: 1.25rem auto;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .confusion-table th,
+    .confusion-table td {
+      padding: 0.6rem 0.8rem;
+      border: 1px solid #e5e7eb;
+    }
+
+    .confusion-table th {
+      background: #f1f5f9;
+      font-weight: 600;
+    }
+
+    .confusion-table .ct {
+      background: #dcfce7;
+    }
+
+    .confusion-table .cf {
+      background: #fee2e2;
+    }
+
+    .confusion-table .ut {
+      background: #fefce8;
+    }
+
+    .confusion-table .uf {
+      background: #fefce8;
+    }
+
+    /* Key findings */
+    .finding-list {
+      margin-top: 1rem;
+    }
+
+    .finding {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.5rem 1rem;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+      align-items: flex-start;
+    }
+
+    .finding-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      margin-top: 2px;
+    }
+
+    .finding-icon.blue {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+
+    .finding-icon.green {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .finding-icon.amber {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .finding-icon.purple {
+      background: #f3e8ff;
+      color: #9333ea;
+    }
+
+    .finding p {
+      margin: 0;
+      font-size: 0.93rem;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .finding strong {
+      font-weight: 600;
+    }
+
+    /* Highlight box */
+    .highlight-box {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 1.15rem 1.25rem;
+      margin: 1.25rem 0;
+    }
+
+    .highlight-box p {
+      text-align: justify;
+    }
+
+    @media (max-width: 768px) {
+      .institution-logos {
+        column-gap: 1rem;
+        max-width: 100%;
+        margin: 1.25rem auto 1.5rem;
+      }
+
+      .logo-box {
+        height: 58px;
+      }
+
+      .logo-box img {
+        max-height: 40px;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-nav">
+    <div class="buttons">
+      <a class="button is-light is-rounded" href="./index.html">
+        <span class="icon"><i class="fas fa-arrow-left"></i></span>
+        <span>Back to Title Page</span>
+      </a>
+      <a class="button is-light is-rounded" href="./ActiveUltraFeedback.html">
+        <span class="icon"><i class="fas fa-arrow-right"></i></span>
+        <span>ActiveUltraFeedback</span>
+      </a>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">RewardUQ: A Unified Framework for Uncertainty-Aware Reward Models
+              </h1>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <a href="https://www.linkedin.com/in/danielyxyang" target="_blank" rel="noopener">Daniel
+                    Yang</a><sup>1*</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://www.linkedin.com/in/samuel-stante" target="_blank" rel="noopener">Samuel
+                    Stante</a><sup>1*</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://www.linkedin.com/in/florian-redhardt-b706961a0" target="_blank"
+                    rel="noopener">Florian Redhardt</a><sup>1*</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://www.linkedin.com/in/lena-libon" target="_blank" rel="noopener">Lena
+                    Libon</a><sup>1*</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://las.inf.ethz.ch/people/parnian-kassraie" target="_blank" rel="noopener">Parnian
+                    Kassraie</a><sup>1,2</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://las.inf.ethz.ch/people/ido-hakimi" target="_blank" rel="noopener">Ido
+                    Hakimi</a><sup>1,2</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://pasztorb.github.io/" target="_blank" rel="noopener">Barna Pásztor</a><sup>1,2</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://las.inf.ethz.ch/krausea" target="_blank" rel="noopener">Andreas
+                    Krause</a><sup>1,2</sup>
+                </span>
+              </div>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <sup>1</sup> ETH Zurich &nbsp;&nbsp; <sup>2</sup> ETH AI Center
+                </span>
+                <span class="eql-cntrb">
+                  <small><br><sup>*</sup> Equal contribution</small>
+                </span>
+              </div>
+
+              <div class="institution-logos">
+                <div class="logo-box">
+                  <img src="./static/images/ethz_logo.png" alt="ETH Zurich logo">
+                </div>
+                <div class="logo-box">
+                  <img src="./static/images/las_logo.png" alt="Learning & Adaptive Systems Group logo">
+                </div>
+                <div class="logo-box">
+                  <img src="./static/images/eth_ai_center_logo.png" alt="ETH AI Center logo">
+                </div>
+              </div>
+
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2602.24040.pdf" target="_blank" rel="noopener"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2602.24040" target="_blank" rel="noopener"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="ai ai-arxiv"></i></span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/lasgroup/rewarduq" target="_blank" rel="noopener"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="./index.html" class="external-link button is-normal is-rounded is-light">
+                    <span class="icon"><i class="fas fa-home"></i></span>
+                    <span>Title Page</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified abstract-links">
+              <p>
+                Reward models are central to aligning large language models (LLMs) with human preferences. Yet most
+                approaches rely on pointwise reward estimates that overlook the epistemic uncertainty in reward models
+                arising from limited human feedback. Recent work suggests that quantifying this uncertainty can reduce
+                the costs of human annotation via uncertainty-guided active learning and mitigate reward
+                overoptimization in LLM post-training. However, uncertainty-aware reward models have so far been adopted
+                without thorough comparison, leaving them poorly understood. This work introduces a unified framework,
+                RewardUQ, to systematically evaluate uncertainty quantification for reward models. We compare common
+                methods along standard metrics measuring accuracy and calibration, and we propose a new ranking strategy
+                incorporating both dimensions for a simplified comparison. Our experimental results suggest that model
+                size and initialization have the most meaningful impact on performance, and most prior work could have
+                benefited from alternative design choices. To foster the development and evaluation of new methods and
+                aid deployment in downstream applications, we release our open-source framework as a Python package. Our
+                code is available at
+                <a href="https://github.com/lasgroup/rewarduq" target="_blank" rel="noopener">GitHub</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section paper-section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            Reinforcement learning from human feedback (RLHF) is a key component for aligning LLMs with human
+            preferences. The standard RLHF pipeline trains a reward model on pairwise comparison data, then uses that
+            model to guide policy optimization via algorithms like PPO or GRPO. However, reward models trained on
+            limited, noisy datasets are imperfect, and overoptimizing against them can cause reward hacking, where the
+            LLM exploits flaws in the reward signal rather than learning human preferences.
+          </p>
+          <p>
+            <strong>Uncertainty quantification (UQ)</strong> for reward models has emerged as a promising mitigation. By
+            explicitly modeling <em>epistemic uncertainty</em> arising from finite training data, uncertainty-aware
+            reward models enable: (1) penalizing or filtering unreliable reward signals during alignment, and (2)
+            guiding active data collection toward the most informative preference samples improving sample efficiency.
+          </p>
+          <p>
+            However, most studies adopt a single UQ method without systematic comparison, leaving
+            design choices largely unexplored. <strong>RewardUQ</strong> fills this gap with a unified framework,
+            standardized metrics, and an open-source Python package.
+          </p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <h2 class="title is-3">Uncertainty-Aware Reward Model Architectures</h2>
+        <div class="content has-text-justified">
+          <p>
+            For a prompt-completion pair \( (x, y) \), all architectures predict a pointwise reward
+            \( r_{\theta}(x, y) \) and an uncertainty estimate \( u_{\theta}(x, y) \), combined into
+            symmetric confidence bounds:
+          </p>
+
+          <div class="formula-box">
+            \[
+            \overline{r_{\theta}}(x,y) = r_{\theta}(x,y) + \beta \cdot u_{\theta}(x,y)
+            \]
+
+            \[
+            \underline{r_{\theta}}(x,y) = r_{\theta}(x,y) - \beta \cdot u_{\theta}(x,y)
+            \]
+          </div>
+
+          <p>
+            We compare four architectures, illustrated in Figure 1 below.
+          </p>
+
+          <figure>
+            <img src="./static/figures/RewardUQ/overview_uq.png"
+              alt="Uncertainty-aware reward model architectures: MLP head ensemble, LoRA adapter ensemble, Bayesian linear head, and DPO-based MC dropout."
+              style="width: 100%;">
+            <figcaption class="figure-caption">
+              <strong>Figure 1:</strong> Uncertainty-aware reward model architectures compared in this work. For a given
+              prompt <em>x</em> and completion <em>y</em>, each model extracts an embedding <em>z</em> from a pretrained
+              LM and predicts a reward <em>r</em> and uncertainty estimate <em>u</em>. Blue components indicate the
+              parts responsible for estimating the uncertainty; 🔥 and ❄ denote trainable and frozen components,
+              respectively.
+            </figcaption>
+          </figure>
+
+          <div class="method-grid">
+            <div class="method-card">
+              <div class="tag">ENS-MLP</div>
+              <h4>MLP Head Ensemble</h4>
+              <p>
+                K independent MLP heads on top of a frozen LLM backbone. Regularization keeps each head close to its
+                random initialization and centers rewards around zero.
+              </p>
+            </div>
+
+            <div class="method-card">
+              <div class="tag">ENS-LoRA</div>
+              <h4>LoRA Adapter Ensemble</h4>
+              <p>
+                K low-rank adapters applied to the LLM backbone, each producing rewards through a linear head.
+              </p>
+            </div>
+
+            <div class="method-card">
+              <div class="tag">MCD-DPO</div>
+              <h4>MC Dropout (DPO)</h4>
+              <p>
+                Monte Carlo dropout applied before the language modeling head of a DPO fine-tuned policy. Uncertainty is
+                estimated from repeated stochastic forward passes and the resulting implicit rewards.
+              </p>
+            </div>
+
+            <div class="method-card">
+              <div class="tag">BAY-LIN</div>
+              <h4>Bayesian Linear Head</h4>
+              <p>
+                Single linear reward head on LLM embeddings with a Gaussian prior. A Laplace approximation provides a
+                posterior over parameters, enabling analytic uncertainty estimates.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="section-divider"></div>
+        </div>
+
+        <!-- Evaluation Metrics -->
+        <h2 class="title is-3">Evaluation Metrics</h2>
+        <div class="content has-text-justified">
+          <p>
+            RewardUQ evaluates uncertainty-aware reward models along <strong>accuracy</strong> (do the predictions and
+            their confidence bounds reflect true preferences?) and
+            <strong>calibration</strong> (do predicted probabilities match empirical frequencies?). We evaluate both
+            of these evaluation dimensions for the reward point estimates, as well as the uncertainty bounds.
+          </p>
+
+          <p>
+            <strong>Accuracy Metrics.</strong> The <em>win rate</em> measures how often the reward model assigns a
+            higher reward to the preferred completion. Beyond pointwise accuracy, we categorize predictions by whether
+            the confidence intervals of the preferred and non-preferred completions overlap. A prediction is
+            <em>confident</em> when the intervals do not overlap, and <em>unconfident</em> otherwise. Combined with
+            correctness, this yields four categories: <em>confident true</em> (CT), <em>confident false</em> (CF),
+            <em>unconfident true</em> (UT), and <em>unconfident false</em> (UF).
+          </p>
+
+          <figure style="margin: 1.5rem 0;">
+            <a href="./static/figures/RewardUQ/metric_explanation.pdf" target="_blank" rel="noopener">
+              <img src="./static/figures/RewardUQ/metric_explanation.svg"
+                alt="Illustration of the four prediction categories: confident true, confident false, unconfident true, and unconfident false."
+                style="width: 50%; display: block; margin: 0 auto;">
+            </a>
+            <figcaption class="figure-caption">
+              <strong>Figure 2:</strong> A prediction is <em>confident</em>
+              when the upper and lower bounds do not overlap and <em>unconfident</em> otherwise. Combined with
+              correctness,
+              this yields four outcomes: confident true (CT), confident false (CF), unconfident true (UT), and
+              unconfident false (UF). An ideal uncertainty-aware reward model maximizes CT while minimizing CF.
+            </figcaption>
+          </figure>
+
+          <p>
+            A good uncertainty-aware model maximizes the confident true (CT) rate while minimizing the confident false
+            (CF) rate, as it should be confident when correct and uncertain when wrong.
+            To reduce these metrics to a single comparable score, we propose a ranking score that rewards confident
+            correct predictions and penalizes confident incorrect ones:
+          </p>
+          <div class="formula-box">
+            \[
+            \text{RS}_\alpha = \frac{\text{CT rate}}{\text{win rate} + \alpha \cdot (1 - \text{win rate})} -
+            \frac{\text{CF rate}}{(1 - \text{win rate}) + \alpha \cdot \text{win rate}} \;\in [-1,\, 1]
+            \]
+          </div>
+          <p>
+            The trade-off parameter \(\alpha \in [0, 1]\) balances focus between confidence (\(\alpha = 0\)) and
+            accuracy (\(\alpha = 1\)). For evaluations, we use \(\text{RS}_{0.2}\) as a balanced choice.
+          </p>
+
+          <p style="margin-top: 1.5rem;">
+            <strong>Calibration Metrics.</strong> We do not only want accurate and confident predictions, but the
+            rewards and bounds should also be well-calibrated. The <em>Expected Calibration Error</em> (ECE) measures
+            the gap between predicted preference probabilities and true empirical probabilities, computed via binning.
+            The <em>Expected Bound Calibration Error</em> (EBCE) extends calibration to confidence bounds and penalizes
+            lower bounds that overestimate or upper bounds that underestimate the true preference probability.
+          </p>
+        </div>
+
+        <div class="container">
+          <div class="section-divider"></div>
+        </div>
+
+        <!-- Experimental Results -->
+        <h2 class="title is-3">Experimental Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            We train and evaluate each architecture across three preference datasets and two model families: the
+            general-purpose
+            <strong>Qwen 3</strong> series and the task-aligned <strong>Skywork-Reward-V2 Qwen 3</strong>
+            series. Hyperparameters are selected on UltraFeedback's
+            validation split, with calibration thresholds (ECE &lt; 0.05, EBCE &lt; 0.01) applied first, followed by
+            ranking by RS<sub>0.2</sub>. Final results are reported on <strong>RewardBench</strong>.
+          </p>
+
+          <figure class="side-figure">
+            <a href="./static/figures/RewardUQ/ranking_0_2.pdf" target="_blank" rel="noopener">
+              <img src="./static/figures/RewardUQ/ranking_0_2.svg"
+                alt="Ranking scores on RewardBench across different UQ methods, training datasets, pretrained and finetuned models, and model sizes."
+                style="width: 100%;">
+            </a>
+            <figcaption class="figure-caption">
+              <strong>Figure 3:</strong> Ranking scores (RS<sub>0.2</sub>) on RewardBench across different UQ methods,
+              training datasets, pretrained and finetuned models, and model sizes.
+            </figcaption>
+          </figure>
+
+          <figure style="margin: 1.5rem 0;">
+            <div style="display: flex; gap: 1rem;">
+              <div style="flex: 1;">
+                <a href="./static/figures/RewardUQ/ultrafeedback-qwen3_0.6b-qwen3_4b-ece.pdf" target="_blank"
+                  rel="noopener">
+                  <img src="./static/figures/RewardUQ/ultrafeedback-qwen3_0.6b-qwen3_4b-ece.svg"
+                    alt="ECE calibration diagrams for Qwen3-0.6B and Qwen3-4B" style="width: 100%;">
+                </a>
+              </div>
+              <div style="flex: 1;">
+                <a href="./static/figures/RewardUQ/ultrafeedback-qwen3_0.6b-qwen3_4b-ebce.pdf" target="_blank"
+                  rel="noopener">
+                  <img src="./static/figures/RewardUQ/ultrafeedback-qwen3_0.6b-qwen3_4b-ebce.svg"
+                    alt="EBCE calibration diagrams for Qwen3-0.6B and Qwen3-4B" style="width: 100%;">
+                </a>
+              </div>
+            </div>
+            <figcaption class="figure-caption">
+              <strong>Figure 4:</strong> Calibration diagrams for Qwen3-0.6B (top) and Qwen3-4B (bottom) trained on
+              UltraFeedback and evaluated on RewardBench. ECE (left) and EBCE (right). Predictions are well-calibrated
+              when they fall on the diagonal.
+            </figcaption>
+          </figure>
+
+          <strong>Key Findings</strong>
+          <div class="finding-list">
+            <div class="finding">
+              <div class="finding-icon blue"><i class="fas fa-star"></i></div>
+              <div>
+                <p><strong>Base model initialization matters most.</strong> Methods that rely on a frozen LLM backbone
+                  for embeddings (BAY-LIN, ENS-MLP) benefit the most from task-aligned initializations like the
+                  Skywork reward model family.</p>
+              </div>
+            </div>
+            <div class="finding">
+              <div class="finding-icon blue"><i class="fas fa-star"></i></div>
+              <div>
+                <p><strong>No single method dominates.</strong> Performance is dependent on model size,
+                  dataset, and pre-training. </p>
+              </div>
+            </div>
+
+            <div class="finding">
+              <div class="finding-icon blue"><i class="fas fa-star"></i></div>
+              <div>
+                <p><strong>Calibration is generally well-behaved.</strong> All UQ methods maintain ECE below 0.10 and
+                  EBCE below 0.04 across configurations. </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="section-divider"></div>
+        </div>
+
+        <section class="section" id="BibTeX">
+          <div class="content">
+            <div class="bibtex-header">
+              <h2 class="title">BibTeX</h2>
+              <button class="copy-bibtex-btn" onclick="copyBibTeX(this)" title="Copy BibTeX to clipboard">
+                Copy
+              </button>
+            </div>
+            <pre id="bibtex-code" class="bibtex-block"><code>@article{yang2025rewarduq,
+  title = {RewardUQ: A Unified Framework for Uncertainty-Aware Reward Models},
+  author = {Yang, Daniel and Stante, Samuel and Redhardt, Florian and Libon, Lena and Kassraie, Parnian and Hakimi, Ido and Pásztor, Barna and Krause, Andreas},
+  year = {2026},
+  journal = {arXiv preprint arXiv:2602.24040},
+  url = {https://arxiv.org/abs/2602.24040},
+}</code></pre>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content has-text-centered">
+              <p>
+                Website and project are part of the Learning & Adaptive Systems Group at ETH Zurich and the ETH AI
+                Center. <br>
+                This page was built using the
+                <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank"
+                  rel="noopener">Academic Project Page Template</a>.
+              </p>
+
+              <div class="footer-nav">
+                <div class="buttons is-centered">
+                  <a class="button is-light is-rounded" href="./index.html">Return to Title Page</a>
+                  <a class="button is-light is-rounded" href="./ActiveUltraFeedback.html">Go to ActiveUltraFeedback</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    async function copyBibTeX(button) {
+      const bibtex = document.getElementById("bibtex-code").innerText;
+      const original = button.textContent;
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(bibtex);
+        } else {
+          const textArea = document.createElement("textarea");
+          textArea.value = bibtex;
+          textArea.style.position = "fixed";
+          textArea.style.left = "-9999px";
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textArea);
+        }
+
+        button.textContent = "Copied!";
+        setTimeout(() => {
+          button.textContent = original;
+        }, 1800);
+      } catch (err) {
+        button.textContent = "Copy failed";
+        setTimeout(() => {
+          button.textContent = original;
+        }, 1800);
+      }
+    }
+  </script>
+</body>
+
+</html>

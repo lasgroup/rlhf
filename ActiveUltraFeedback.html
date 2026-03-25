@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Primary Meta Tags -->
+  <title>ActiveUltraFeedback: Efficient Preference Data Generation using Active Learning | ETH Zurich</title>
+  <meta name="title" content="ActiveUltraFeedback: Efficient Preference Data Generation using Active Learning">
+  <meta name="description" content="Project page for ActiveUltraFeedback, a modular active learning pipeline for efficient preference data generation in RLHF using uncertainty-aware response pair selection.">
+  <meta name="keywords" content="RLHF, large language models, active learning, preference learning, reward modeling, uncertainty estimation, ActiveUltraFeedback, LLM alignment">
+  <meta name="author" content="Davit Melikidze, Marian Schneider, Jessica Lam, Martin Wertich, Ido Hakimi, Barna Pásztor, Andreas Krause">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ETH Zurich">
+  <meta property="og:title" content="ActiveUltraFeedback: Efficient Preference Data Generation using Active Learning">
+  <meta property="og:description" content="A modular active learning pipeline for efficient preference data generation in RLHF using uncertainty-aware response pair selection.">
+  <!-- Replace with your final deployed URL if you know it -->
+  <!-- <meta property="og:url" content="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/ActiveUltraFeedback.html"> -->
+  <!-- Replace with your final social preview image if you create one -->
+  <!-- <meta property="og:image" content="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/figures/ActiveUltraFeedback/overview_big.png"> -->
+  <meta property="article:published_time" content="2026-03-12T00:00:00.000Z">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ActiveUltraFeedback: Efficient Preference Data Generation using Active Learning">
+  <meta name="twitter:description" content="A modular active learning pipeline for efficient preference data generation in RLHF using uncertainty-aware response pair selection.">
+  <!-- Optional -->
+  <!-- <meta name="twitter:image" content="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO/figures/ActiveUltraFeedback/overview_big.png"> -->
+
+  <!-- Academic Meta -->
+  <meta name="citation_title" content="ActiveUltraFeedback: Efficient Preference Data Generation using Active Learning">
+  <meta name="citation_author" content="Melikidze, Davit">
+  <meta name="citation_author" content="Schneider, Marian">
+  <meta name="citation_author" content="Lam, Jessica">
+  <meta name="citation_author" content="Wertich, Martin">
+  <meta name="citation_author" content="Hakimi, Ido">
+  <meta name="citation_author" content="Pásztor, Barna">
+  <meta name="citation_author" content="Krause, Andreas">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2603.09692.pdf">
+
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- JS -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "ActiveUltraFeedback: Efficient Preference Data Generation using Active Learning",
+    "description": "A modular active learning pipeline for efficient preference data generation in RLHF using uncertainty-aware response pair selection.",
+    "author": [
+      { "@type": "Person", "name": "Davit Melikidze", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Marian Schneider", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Jessica Lam", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Martin Wertich", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Ido Hakimi", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Barna Pásztor", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } },
+      { "@type": "Person", "name": "Andreas Krause", "affiliation": { "@type": "Organization", "name": "ETH Zurich" } }
+    ],
+    "datePublished": "2026-03-12",
+    "publisher": {
+      "@type": "Organization",
+      "name": "ETH Zurich"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2603.09692",
+      "https://github.com/lasgroup/ActiveUltraFeedback",
+      "https://huggingface.co/ActiveUltraFeedback"
+    ],
+    "isAccessibleForFree": true
+  }
+  </script>
+
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+
+    .top-nav {
+      padding: 1rem 1.5rem 0;
+    }
+
+    .top-nav .buttons {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .paper-hero-wide {
+      max-width: 1400px;
+      width: min(94vw, 1400px);
+    }
+
+    .hero-figure img,
+    .content-figure img,
+    .side-figure img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .hero-figure,
+    .content-figure,
+    .side-figure {
+      margin: 0;
+    }
+
+    .figure-caption {
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      color: #6b7280;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .section-divider {
+      margin-top: 3rem;
+    }
+
+    .paper-section p {
+      line-height: 1.8;
+    }
+
+    .highlight-box {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 1.25rem;
+    }
+
+    .bibtex-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .copy-bibtex-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.65rem 1rem;
+      background: #111827;
+      color: white;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .copy-bibtex-btn:hover {
+      background: #000;
+    }
+
+    pre.bibtex-block {
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-x: auto;
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 1.25rem;
+      border: 1px solid #e5e7eb;
+    }
+
+    .footer-nav {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .institution-logos {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: center;
+      column-gap: 2rem;
+      max-width: 760px;
+      margin: 1.5rem auto 1.75rem;
+    }
+
+    .logo-box {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-box img {
+      display: block;
+      max-height: 54px;
+      max-width: 200px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* Larger figure containers for better readability */
+    .teaser-wide {
+      max-width: 1180px !important;
+      width: min(96vw, 1180px);
+    }
+
+    .method-figure-wide {
+      max-width: 1120px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .abstract-links a {
+      color: #2563eb;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+      font-weight: 600;
+    }
+
+    .abstract-links a:hover,
+    .abstract-links a:focus {
+      color: #1d4ed8;
+    }
+
+    .results-layout {
+      width: 100%;
+      max-width: 100%;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .results-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin: 1.25rem 0;
+      width: 100%;
+    }
+
+    .results-row .results-card {
+      margin: 0;
+    }
+
+    .results-card {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 1rem;
+      width: 100%;
+      margin: 1.25rem 0;
+    }
+
+    .results-card .side-figure {
+      margin: 0;
+    }
+
+    .results-card .figure-caption {
+      margin-top: 0.9rem;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .results-row {
+        grid-template-columns: 1fr;
+      }
+
+      .institution-logos {
+        column-gap: 1rem;
+        max-width: 100%;
+        margin: 1.25rem auto 1.5rem;
+      }
+
+      .logo-box {
+        height: 58px;
+      }
+
+      .logo-box img {
+        max-height: 40px;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <div class="buttons">
+      <a class="button is-light is-rounded" href="./index.html">
+        <span class="icon"><i class="fas fa-arrow-left"></i></span>
+        <span>Back to Title Page</span>
+      </a>
+      <a class="button is-light is-rounded" href="./RewardUQ.html">
+        <span class="icon"><i class="fas fa-arrow-right"></i></span>
+        <span>RewardUQ</span>
+      </a>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">ActiveUltraFeedback: Efficient Preference Data Generation using Active Learning</h1>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <a href="https://www.linkedin.com/in/davit-melikidze/" target="_blank" rel="noopener">Davit Melikidze</a><sup>1*</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://marischn.github.io/" target="_blank" rel="noopener">Marian Schneider</a><sup>1*</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://www.linkedin.com/in/jessicalamjh" target="_blank" rel="noopener">Jessica Lam</a><sup>1*</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://mwertich.github.io/" target="_blank" rel="noopener">Martin Wertich</a><sup>1*</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://las.inf.ethz.ch/people/ido-hakimi" target="_blank" rel="noopener">Ido Hakimi</a><sup>1,2</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://pasztorb.github.io/" target="_blank" rel="noopener">Barna Pásztor</a><sup>1,2</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://las.inf.ethz.ch/krausea" target="_blank" rel="noopener">Andreas Krause</a><sup>1,2</sup>
+                </span>
+              </div>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <sup>1</sup> ETH Zurich &nbsp;&nbsp; <sup>2</sup> ETH AI Center
+                </span>
+                <span class="eql-cntrb">
+                  <small><br><sup>*</sup> Equal contribution</small>
+                </span>
+              </div>
+
+              <div class="institution-logos">
+                <div class="logo-box">
+                  <img src="./static/images/ethz_logo.png" alt="ETH Zurich logo">
+                </div>
+                <div class="logo-box">
+                  <img src="./static/images/las_logo.png" alt="Learning & Adaptive Systems Group logo">
+                </div>
+                <div class="logo-box">
+                  <img src="./static/images/eth_ai_center_logo.png" alt="ETH AI Center logo">
+                </div>
+              </div>
+
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2603.09692.pdf" target="_blank" rel="noopener"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2603.09692" target="_blank" rel="noopener"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="ai ai-arxiv"></i></span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/lasgroup/ActiveUltraFeedback" target="_blank" rel="noopener"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://huggingface.co/ActiveUltraFeedback" target="_blank" rel="noopener"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-database"></i></span>
+                    <span>Dataset</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="./index.html"
+                     class="external-link button is-normal is-rounded is-light">
+                    <span class="icon"><i class="fas fa-home"></i></span>
+                    <span>Title Page</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero teaser">
+      <div class="container teaser-wide">
+        <div class="hero-body">
+          <figure class="hero-figure">
+            <a href="./static/figures/ActiveUltraFeedback/overview_big.pdf" target="_blank" rel="noopener">
+              <img src="./static/figures/ActiveUltraFeedback/overview_big.png" alt="ActiveUltraFeedback pipeline overview">
+            </a>
+            <figcaption class="figure-caption">
+              Overview of the ActiveUltraFeedback pipeline.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified abstract-links">
+              <p>
+                Reinforcement Learning from Human Feedback (RLHF) has become the standard for aligning Large Language Models (LLMs), yet its efficacy is bottlenecked by the high cost of acquiring preference data, especially in low-resource and expert domains. To address this, we introduce ActiveUltraFeedback, a modular active learning pipeline that leverages uncertainty estimates to dynamically identify the most informative responses for annotation. Our pipeline facilitates the systematic evaluation of standard response selection methods alongside Double Reverse Thompson Sampling (DRTS) and DeltaUCB, two novel methods prioritizing response pairs with large predicted quality gaps, leveraging recent results showing that such pairs provide good signals for fine-tuning. Our experiments demonstrate that ActiveUltraFeedback yields high-quality datasets that lead to significant improvements in downstream performance, notably achieving comparable or superior results with as little as one-sixth of the annotated data relative to static baselines. Our pipeline is available at
+                <a href="https://github.com/lasgroup/ActiveUltraFeedback" target="_blank" rel="noopener">GitHub</a>
+                and our preference datasets at
+                <a href="https://huggingface.co/ActiveUltraFeedback" target="_blank" rel="noopener">Hugging Face</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section paper-section">
+      <div class="container is-max-desktop">
+        <div class="columns is-variable is-6">
+          <div class="column is-8">
+            <h2 class="title is-3">Introduction</h2>
+            <div class="content has-text-justified">
+              <p>
+                Reinforcement Learning from Human Feedback (RLHF) is a key technique for aligning large language models with human preferences, but its success depends heavily on the quality of the underlying preference data. In practice, collecting such data is costly, especially in expert or low-resource domains, which makes annotation efficiency a central challenge for scalable alignment.
+              </p>
+              <p>
+                Existing preference data pipelines often rely on static heuristics such as random sampling or best-of-N generation. While simple, these strategies can waste annotation budget on uninformative response pairs. More recent alternatives improve efficiency in specific settings, but are often tied to particular model families or training objectives, limiting their flexibility.
+              </p>
+              <p>
+                To address this, we introduce <strong>ActiveUltraFeedback</strong>, a modular active learning pipeline for preference data collection. The framework maintains uncertainty-aware estimates of response quality and uses them to select the most informative response pairs for annotation. Within this setup, we evaluate standard selection methods and propose two new approaches, <strong>Double Reverse Thompson Sampling (DRTS)</strong> and <strong>DeltaUCB</strong>, which prioritize pairs with large predicted quality gaps.
+              </p>
+              <p>
+                Across reward model and downstream benchmarks, ActiveUltraFeedback consistently improves data efficiency over prior heuristics and dueling bandit baselines. In particular, it can match or outperform existing methods while using substantially fewer annotations, making it a practical approach for building high-quality preference datasets at lower cost.
+              </p>
+            </div>
+          </div>
+
+          <div class="column is-4">
+            <figure class="side-figure">
+              <a href="./static/figures/ActiveUltraFeedback/teaser.pdf" target="_blank" rel="noopener">
+                <img src="./static/figures/ActiveUltraFeedback/teaser.png" alt="Comparison of response pair selection methods">
+              </a>
+              <figcaption class="figure-caption">
+                Comparison of response pair selection methods on downstream and reward model benchmarks in ActiveUltraFeedback.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <h2 class="title is-3">Methodology</h2>
+        <div class="content has-text-justified">
+          <figure class="content-figure mb-5 method-figure-wide">
+            <a href="./static/figures/ActiveUltraFeedback/overview.pdf" target="_blank" rel="noopener">
+              <img src="./static/figures/ActiveUltraFeedback/overview.png" alt="Overview of the ActiveUltraFeedback pipeline">
+            </a>
+            <figcaption class="figure-caption">
+              The ActiveUltraFeedback pipeline. For each prompt, responses are generated from a large pool of LLMs, the rewards for the responses are predicted with corresponding uncertainties, and a pair of responses is selected for preference annotation. Each new batch of preference data is used to train the reward model, improving the accuracy of reward and uncertainty estimates for subsequent iterations. The displayed procedure is performed in a looping manner until all prompts have been processed.
+            </figcaption>
+          </figure>
+
+          <p>
+            <strong>ActiveUltraFeedback</strong> is a modular pipeline for efficient preference data collection. Starting from a set of prompts, the system processes data in batches and iteratively builds a preference dataset. For each prompt, it first generates a diverse pool of candidate responses using multiple open-weight language models and prompting principles designed to increase variation in content and quality.
+          </p>
+          <p>
+            Next, the pipeline uses a reward model with uncertainty estimates to score the candidate responses. Based on these estimates, it selects a pair of responses for preference annotation. This selection step is the core of the framework: instead of annotating arbitrary pairs, ActiveUltraFeedback prioritizes response pairs that are expected to be most informative.
+          </p>
+          <p>
+            Within this setup, we compare standard heuristics and dueling bandit methods, and we introduce two new strategies: <strong>Double Reverse Thompson Sampling (DRTS)</strong> and <strong>DeltaUCB</strong>. Both methods are designed to favor response pairs with large predicted quality gaps, which can provide stronger learning signals for downstream reward modeling and fine-tuning.
+          </p>
+          <p>
+            After annotation, the newly collected preference pairs are added to the dataset, and the reward model is updated before the next batch is processed. This iterative loop makes ActiveUltraFeedback scalable, flexible, and applicable across different datasets, model families, and downstream alignment methods.
+          </p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <h2 class="title is-3">Experimental Setup and Results</h2>
+          <div class="content has-text-justified">
+            <p>
+              We evaluate ActiveUltraFeedback along three main dimensions: overall performance, sample efficiency, and generalization across datasets and training algorithms. Using prompts from the UltraFeedback dataset as the main benchmark, we generate preference datasets with different response-pair selection methods, train reward models and fine-tuned models on the resulting data, and compare them on RewardBench 2 as well as downstream benchmarks including GSM8K, IFEval, TruthfulQA, and AlpacaEval 2. Throughout, delta scores denote performance changes relative to the base model, so positive values indicate improvements over the starting checkpoint.
+            </p>
+            <p>
+              Across these evaluations, our proposed methods, <strong>DRTS</strong> and <strong>DeltaUCB</strong>, consistently produce the strongest overall results. They outperform common heuristic baselines and standard dueling bandit methods on both reward-model evaluation and downstream fine-tuning. In particular, they generate preference datasets that are more informative and more broadly useful than datasets collected with random sampling or existing active learning baselines.
+            </p>
+            <p>
+              A key finding is that ActiveUltraFeedback is highly sample-efficient. With DRTS and DeltaUCB, models trained on only a small fraction of the collected preference pairs can already match or exceed the performance of models trained on much larger datasets generated by standard methods. This shows that careful response-pair selection can significantly reduce annotation cost while maintaining or improving final model quality.
+            </p>
+            <div class="results-card">
+              <figure class="side-figure">
+                <a href="./static/figures/ActiveUltraFeedback/sample_efficiency.pdf" target="_blank" rel="noopener">
+                  <img src="./static/figures/ActiveUltraFeedback/sample_efficiency.png" alt="Sample efficiency results">
+                </a>
+                <figcaption class="figure-caption">
+                  Mean performance trajectories for fine-tuned and reward models on UltraFeedback prompts using DPO.
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="results-card">
+              <figure class="side-figure">
+                <a href="./static/figures/ActiveUltraFeedback/sample_efficiency_ipo_simpo.pdf" target="_blank" rel="noopener">
+                  <img src="./static/figures/ActiveUltraFeedback/sample_efficiency_ipo_simpo.png" alt="Sample efficiency results for IPO and SimPO">
+                </a>
+                <figcaption class="figure-caption">
+                  Mean performance trajectories for our fine-tuned models using IPO and SimPO.
+                </figcaption>
+              </figure>
+            </div>
+            <p>
+              We also find that these gains generalize across prompt sources and preference optimization algorithms. While some baselines perform well only in narrow settings, DRTS and DeltaUCB remain strong across multiple datasets and training objectives, making ActiveUltraFeedback a flexible and practical approach for efficient preference data generation.
+            </p>
+          </div>
+
+          <div class="results-card">
+            <figure class="side-figure">
+              <a href="./static/figures/ActiveUltraFeedback/dataset_ablation.pdf" target="_blank" rel="noopener">
+                <img src="./static/figures/ActiveUltraFeedback/dataset_ablation.png" alt="Dataset ablation results">
+              </a>
+              <figcaption class="figure-caption">
+                Benchmarking of downstream and reward model performance across input prompt datasets.
+              </figcaption>
+            </figure>
+          </div>
+
+        <div class="section-divider"></div>
+
+        <h2 class="title is-3">Conclusion &amp; Future Work</h2>
+        <div class="content has-text-justified">
+          <p>
+            We introduce <strong>ActiveUltraFeedback</strong>, a modular active learning pipeline for preference data generation that improves annotation efficiency by selecting the most informative response pairs for labeling. Across our evaluations, the framework consistently produces stronger datasets than standard static heuristics, with our proposed methods <strong>DRTS</strong> and <strong>DeltaUCB</strong> delivering particularly strong performance for both reward modeling and downstream fine-tuning.
+          </p>
+          <p>
+            A key advantage of ActiveUltraFeedback is its flexibility: the pipeline is designed as a platform that supports different response selection methods, uncertainty estimators, and judges, making it broadly applicable across datasets and training objectives. Our results show that it is possible to build high-quality preference datasets that are not tightly tied to a single downstream algorithm or model family.
+          </p>
+          <p>
+            Looking ahead, promising directions include improving uncertainty estimation, incorporating stronger diversity constraints, extending active learning from response selection to prompt selection, and supporting human annotation workflows through interactive tools. Another important direction is reducing computational cost, for example by actively selecting which models to query for responses rather than generating from a large fixed pool. To support future research in this area, we release our generated datasets and pipeline artifacts for broader use.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <div class="bibtex-header">
+          <h2 class="title">BibTeX</h2>
+          <button class="copy-bibtex-btn" onclick="copyBibTeX(this)" title="Copy BibTeX to clipboard">
+            Copy
+          </button>
+        </div>
+        <pre id="bibtex-code" class="bibtex-block"><code>@misc{melikidze2026activeultrafeedbackefficientpreferencedata,
+  title={ActiveUltraFeedback: Efficient Preference Data Generation using Active Learning},
+  author={Davit Melikidze and Marian Schneider and Jessica Lam and Martin Wertich and Ido Hakimi and Barna Pásztor and Andreas Krause},
+  year={2026},
+  eprint={2603.09692},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2603.09692},
+}</code></pre>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content has-text-centered">
+              <p>
+                Website and project are part of the Learning & Adaptive Systems Group at ETH Zurich and the ETH AI Center. <br>
+                This page was built using the
+                <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a>.
+              </p>
+
+              <div class="footer-nav">
+                <div class="buttons is-centered">
+                  <a class="button is-light is-rounded" href="./index.html">Return to Title Page</a>
+                  <a class="button is-light is-rounded" href="./RewardUQ.html">Go to RewardUQ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    async function copyBibTeX(button) {
+      const bibtex = document.getElementById("bibtex-code").innerText;
+      const original = button.textContent;
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(bibtex);
+        } else {
+          const textArea = document.createElement("textarea");
+          textArea.value = bibtex;
+          textArea.style.position = "fixed";
+          textArea.style.left = "-9999px";
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textArea);
+        }
+
+        button.textContent = "Copied!";
+        setTimeout(() => {
+          button.textContent = original;
+        }, 1800);
+      } catch (err) {
+        button.textContent = "Copy failed";
+        setTimeout(() => {
+          button.textContent = original;
+        }, 1800);
+      }
+    }
+  </script>
+</body>
+</html>
